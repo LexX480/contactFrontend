@@ -1,7 +1,7 @@
 // pages/SettingPage.jsx
 import React from 'react';
 import { useAuthStore } from '../store/useAuthStore';
-import { useThemeStore } from '../store/useThemeStore';
+import { useThemeStore } from '../store/useThemeStore.js';
 import { THEMES } from '../constants';
 
 const SettingPage = () => {
