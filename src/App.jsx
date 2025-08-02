@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAuthStore } from './store/useAuthStore';
-import { useThemeStore } from './store/useThemeStore';
+import { useThemeStore } from './store/useThemeStore.js';
 import api from './lib/axios';
 
 import Navbar from './components/Navbar';
