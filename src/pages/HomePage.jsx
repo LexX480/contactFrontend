@@ -106,22 +106,32 @@ const HomePage = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {contacts.map((contact) => (
-            <div key={contact._id} className="card bg-base-100 shadow-md hover:shadow-lg transition duration-200">
-              <div className="card-body">
-                <h2 className="card-title">{contact.name}</h2>
-                <p><strong>Email:</strong> {contact.email}</p>
-                <p><strong>Phone:</strong> {contact.phone}</p>
+            <div
+              key={contact._id}
+              className="card bg-base-100 shadow-md hover:shadow-lg transition duration-200 rounded-lg overflow-hidden"
+            >
+              {/* Background Gradient */}
+              <div
+                className="absolute inset-0 bg-gradient-to-br from-yellow-200 via-orange-300 to-red-400 opacity-20 pointer-events-none"
+              ></div>
+
+              <div className="card-body p-6 relative z-10">
+                <h2 className="card-title text-xl font-bold text-primary">{contact.name}</h2>
+                <p className="text-base text-secondary"><strong>Email:</strong> {contact.email}</p>
+                <p className="text-base text-secondary"><strong>Phone:</strong> {contact.phone}</p>
+
                 <div className="card-actions justify-end mt-4 gap-2">
                   <button
                     onClick={() => openEditModal(contact)}
-                    className="btn btn-sm btn-outline flex items-center gap-1"
+                    className="btn btn-sm btn-outline flex items-center gap-1  transition duration-200"
                   >
                     <Edit size={14} />
                     Edit
                   </button>
+
                   <button
                     onClick={() => handleDelete(contact._id)}
-                    className="btn btn-sm btn-error flex items-center gap-1"
+                    className="btn btn-sm btn-error flex items-center gap-1 bg-red-600 hover:bg-red-700 transition duration-200"
                   >
                     <Trash2 size={14} />
                     Delete

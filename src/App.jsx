@@ -1,8 +1,8 @@
 // App.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAuthStore } from './store/useAuthStore';
-import { useEffect } from 'react';
+import { useThemeStore } from './store/useThemeStore';
 import api from './lib/axios';
 
 import Navbar from './components/Navbar';
@@ -11,10 +11,18 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import SettingPage from './pages/SettingPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const { token, setUser } = useAuthStore();
+  const { theme } = useThemeStore();
 
+  // ✅ Sync theme to <html> tag
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  // 🔁 Fetch user on token change
   useEffect(() => {
     const fetchUser = async () => {
       if (token) {
@@ -31,7 +39,7 @@ function App() {
   }, [token]);
 
   return (
-    <>
+    <div className="App">
       <Navbar />
       <Routes>
         <Route
@@ -53,7 +61,8 @@ function App() {
           }
         />
       </Routes>
-    </>
+      <Toaster />
+    </div>
   );
 }
 

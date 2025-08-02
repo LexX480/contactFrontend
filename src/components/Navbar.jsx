@@ -10,11 +10,11 @@ const Navbar = () => {
     <div className="navbar bg-base-100 shadow-md mb-6">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-xl">
-          📞 Contact Manager
+          📞 MeroContact
         </Link>
       </div>
       <div className="flex-none gap-2">
-        <Link to="/" className="btn btn-ghost">Home</Link>
+        <Link to="/" className="btn btn-ghost bg">Home</Link>
         <Link to="/settings" className="btn btn-ghost">Settings</Link>
         {user ? (
           <button onClick={logout} className="btn btn-outline btn-error btn-sm">
