@@ -1,6 +1,5 @@
-// App.jsx
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/useAuthStore';
 import { useThemeStore } from './store/useThemeStore.js';
 import api from './lib/axios';
@@ -17,12 +16,12 @@ function App() {
   const { token, setUser } = useAuthStore();
   const { theme } = useThemeStore();
 
-  // ✅ Sync theme to <html> tag
+  // ✅ Sync theme
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // 🔁 Fetch user on token change
+  // 🔁 Fetch user if token exists
   useEffect(() => {
     const fetchUser = async () => {
       if (token) {
@@ -41,17 +40,27 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+
       <Routes>
+        {/* 🔥 Root Route: Redirect to /home if logged in, else /login */}
         <Route
           path="/"
+          element={token ? <Navigate to="/home" /> : <Navigate to="/login" />}
+        />
+
+        {/* Public Routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Protected Routes using ProtectedRoute */}
+        <Route
+          path="/home"
           element={
             <ProtectedRoute>
               <HomePage />
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/settings"
           element={
@@ -60,7 +69,11 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Catch-all for undefined routes */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+
       <Toaster />
     </div>
   );
